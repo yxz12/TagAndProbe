@@ -124,7 +124,7 @@ int tagandprobe() {
             // Candidate 2 is also a valid tag
                 //Here we check the pair is opposite sign. We could also check they are well separated, using Delta R(commented out) 
                 if(os /*&& DeltaR(eta_1,phi_1,eta_2,phi_2)>0.5*/){
-                    if(q_1 == 1) {
+ //                   if(q_1 == 1) {
                     // Candidate 1 is the tag
                         if(id_2>0.5 && iso_2<0.15) {
                             //Passing probe events fill the passing histogram
@@ -150,7 +150,7 @@ int tagandprobe() {
                                 }
                             }
                         }
-                    } else if (q_1 == -1) {
+//                    } else if (q_1 == -1) {
                     // Candidate 2 is the tag
                         if(id_1>0.5 && iso_1<0.15) {
                             id_iso_pass->Fill(m_vis);
@@ -173,13 +173,13 @@ int tagandprobe() {
                                 }
                             }
                         }
-                    }
+//                    }
                 }
             } else {
                 //Candidate 1 is the tag, check conditions on candidate 2
                 if(os /*&& DeltaR(eta_1,phi_1,eta_2,phi_2)>0.5*/){
                     //Only use events where charge == 1 for the tag, even in events with only one tag
-                    if(q_1==1){    
+ //                   if(q_1==1){    
                         if(id_2>0.5 && iso_2<0.15) {
                             id_iso_pass->Fill(m_vis);
                             for (int iEta=0; iEta<nEtaBins-1; ++iEta) {
@@ -201,7 +201,7 @@ int tagandprobe() {
                                 }
                             }
                         }
-                    }
+                //    }
                 }
             }
         }
