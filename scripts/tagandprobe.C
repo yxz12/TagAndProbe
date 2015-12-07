@@ -27,7 +27,7 @@ int tagandprobe() {
     //--------------------------------------------------------------------------------------
     //                      1. Extract the root file and the tree
     //--------------------------------------------------------------------------------------
-    TFile *file = new TFile("../Trees111115/DYJetsToLL_tpzmm_2015.root");
+    TFile *file = new TFile("../Trees111115/DYJetsToLL_tpzee_2015.root");
     TTree *tree = dynamic_cast<TTree*>(file->Get("ntuple"));
     
     //--------------------------------------------------------------------------------------
@@ -100,7 +100,7 @@ int tagandprobe() {
             // Candidate 2 is also a valid tag
                 //Here we check the pair is opposite sign. We could also check they are well separated, using Delta R(commented out) 
                 if(os /*&& DeltaR(eta_1,phi_1,eta_2,phi_2)>0.5*/){
-                    if(q_1 == 1) {
+            //        if(q_1 == 1) {
                     // Candidate 1 is the tag
                         if(id_2>0.5 && iso_2<0.15) {
                             //Passing probe events fill the passing histogram
@@ -135,7 +135,7 @@ int tagandprobe() {
                                 id_iso_fail_4->Fill(m_vis);
                             }
                         }
-                    } else if (q_1 == -1) {
+            //        } else if (q_1 == -1) {
                     // Candidate 2 is the tag
                         if(id_1>0.5 && iso_1<0.15) {
                             id_iso_pass->Fill(m_vis);
@@ -166,13 +166,13 @@ int tagandprobe() {
                                 id_iso_fail_4->Fill(m_vis);
                             }
                         }
-                    }
+               //     }
                 }
             } else {
                 //Candidate 1 is the tag, check conditions on candidate 2
                 if(os /*&& DeltaR(eta_1,phi_1,eta_2,phi_2)>0.5*/){
                     //Only use events where charge == 1 for the tag, even in events with only one tag
-                    if(q_1==1){    
+      //              if(q_1==1){    
                         if(id_2>0.5 && iso_2<0.15) {
                             id_iso_pass->Fill(m_vis);
                             if(pt_2>10 && pt_2<15 && fabs(eta_2)<0.9){
@@ -202,13 +202,13 @@ int tagandprobe() {
                                 id_iso_fail_4->Fill(m_vis);
                             }
                         }
-                    }
+                   // }
                 }
             }
         }
     }
 
-    TFile* file0=new TFile("muonIDIso_eta0p9.root","RECREATE");
+    TFile* file0=new TFile("electronIDIso_eta0p9.root","RECREATE");
     
     /*id_pass->Write();
     id_fail->Write();
