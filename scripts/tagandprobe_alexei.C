@@ -149,8 +149,8 @@ int tagandprobe() {
                         } else {
                             //Failing probe events fill the failing histogram
                             id_iso_fail->Fill(m_vis);
-                            for (int iEta=0; iEta<nEtaBins-1; ++iEta) {
-                                for (int iPt=0; iPt<nPtBins-1; ++iPt) {
+                            for (int iEta=0; iEta<nEtaBins; ++iEta) {
+                                for (int iPt=0; iPt<nPtBins; ++iPt) {
                                     if( fabs(eta_2) > etaBins[iEta] && fabs(eta_2) < etaBins[iEta+1] 
                                         && pt_2 > ptBins[iPt] && pt_2 < ptBins[iPt+1]) {
                                             ZMassEtaPtFail[iEta][iPt]->Fill(m_vis);
@@ -163,8 +163,8 @@ int tagandprobe() {
                     if (fabs(dxy_1) < 0.2 && fabs(dz_1) < 0.5) {
                         if(id_1>0.5 && iso_1<0.15) {
                             id_iso_pass->Fill(m_vis);
-                            for (int iEta=0; iEta<nEtaBins-1; ++iEta) {
-                                for (int iPt=0; iPt<nPtBins-1; ++iPt) {
+                            for (int iEta=0; iEta<nEtaBins; ++iEta) {
+                                for (int iPt=0; iPt<nPtBins; ++iPt) {
                                     if( fabs(eta_1) > etaBins[iEta] && fabs(eta_1) < etaBins[iEta+1] 
                                         && pt_1 > ptBins[iPt] && pt_1 < ptBins[iPt+1]) {
                                             ZMassEtaPtPass[iEta][iPt]->Fill(m_vis);
@@ -173,8 +173,8 @@ int tagandprobe() {
                             }
                         } else {
                             id_iso_fail->Fill(m_vis);
-                            for (int iEta=0; iEta<nEtaBins-1; ++iEta) {
-                                for (int iPt=0; iPt<nPtBins-1; ++iPt) {
+                            for (int iEta=0; iEta<nEtaBins; ++iEta) {
+                                for (int iPt=0; iPt<nPtBins; ++iPt) {
                                     if( fabs(eta_1) > etaBins[iEta] && fabs(eta_1) < etaBins[iEta+1] 
                                         && pt_1 > ptBins[iPt] && pt_1 < ptBins[iPt+1]) {
                                             ZMassEtaPtFail[iEta][iPt]->Fill(m_vis);
@@ -191,8 +191,8 @@ int tagandprobe() {
                     if(fabs(dxy_2) < 0.2 && fabs(dz_2) < 0.5){    
                         if(id_2>0.5 && iso_2<0.15) {
                             id_iso_pass->Fill(m_vis);
-                            for (int iEta=0; iEta<nEtaBins-1; ++iEta) {
-                                for (int iPt=0; iPt<nPtBins-1; ++iPt) {
+                            for (int iEta=0; iEta<nEtaBins; ++iEta) {
+                                for (int iPt=0; iPt<nPtBins; ++iPt) {
                                     if( fabs(eta_2) > etaBins[iEta] && fabs(eta_2) < etaBins[iEta+1] 
                                         && pt_2 > ptBins[iPt] && pt_2 < ptBins[iPt+1]) {
                                             ZMassEtaPtPass[iEta][iPt]->Fill(m_vis);
@@ -201,8 +201,8 @@ int tagandprobe() {
                             }
                         } else {
                             id_iso_fail->Fill(m_vis);
-                            for (int iEta=0; iEta<nEtaBins-1; ++iEta) {
-                                for (int iPt=0; iPt<nPtBins-1; ++iPt) {
+                            for (int iEta=0; iEta<nEtaBins; ++iEta) {
+                                for (int iPt=0; iPt<nPtBins; ++iPt) {
                                     if( fabs(eta_2) > etaBins[iEta] && fabs(eta_2) < etaBins[iEta+1] 
                                         && pt_2 > ptBins[iPt] && pt_2 < ptBins[iPt+1]) {
                                             ZMassEtaPtFail[iEta][iPt]->Fill(m_vis);
