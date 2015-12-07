@@ -124,11 +124,11 @@ int tagandprobe() {
     //--------------------------------------------------------------------------------------
     for (int i = 0; i < tree->GetEntries(); ++i) {
         tree->GetEntry(i);
-        if(id_1>0.5 && iso_1<0.15 && pt_1>22 && fabs(eta_1)<2.4 && trigger_match_1 && fabs(dxy_1) < 0.045 && fabs(dz_1) < 0.2) {
+        if(id_1>0.5 && iso_1<0.15 && pt_1>22 && fabs(eta_1)<2.1 && trigger_match_1 && fabs(dxy_1) < 0.045 && fabs(dz_1) < 0.2) {
         //Here we apply the tag condition. This could be just id and iso, although Alexei applies some other things like high pt
         //and eta cuts, possible dxy and dz cuts and trigger matching
             // Candidate 1 is a valid tag
-            if(id_2>0.5 && iso_2<0.15 && pt_2>22 && fabs(eta_2)<2.4 && trigger_match_2 && fabs(dxy_2) < 0.045 && fabs(dz_2) < 0.2) {
+            if(id_2>0.5 && iso_2<0.15 && pt_2>22 && fabs(eta_2)<2.1 && trigger_match_2 && fabs(dxy_2) < 0.045 && fabs(dz_2) < 0.2) {
             // Candidate 2 is also a valid tag
                 //Here we check the pair is opposite sign. We also check they are well separated, using Delta R 
                 if(os && DeltaR(eta_1,phi_1,eta_2,phi_2)>0.5){
