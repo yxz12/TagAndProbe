@@ -27,7 +27,7 @@ int tagandprobe() {
     //--------------------------------------------------------------------------------------
     //                      1. Extract the root file and the tree
     //--------------------------------------------------------------------------------------
-    TFile *file = new TFile("../Trees111115/DYJetsToLL_tpzee_2015.root");
+    TFile *file = new TFile("../Trees071215/DYJetsToLL_M-50-LO_tpzmm_2015.root");
     TTree *tree = dynamic_cast<TTree*>(file->Get("ntuple"));
     
     //--------------------------------------------------------------------------------------
@@ -35,13 +35,16 @@ int tagandprobe() {
     //--------------------------------------------------------------------------------------
     double id_1, id_2, iso_1, iso_2;
     int q_1, q_2;
+    bool trigger_match_1, trigger_match_2;
     tree->SetBranchAddress("id_1",&id_1);
     tree->SetBranchAddress("id_2",&id_2);
     tree->SetBranchAddress("iso_1",&iso_1);
     tree->SetBranchAddress("iso_2",&iso_2);
     tree->SetBranchAddress("q_1",&q_1);
     tree->SetBranchAddress("q_2",&q_2);
-    double pt_1,pt_2,E_1,E_2,eta_1,eta_2,phi_1,phi_2,m_vis;
+    tree->SetBranchAddress("trigger_match_1",&trigger_match_1);
+    tree->SetBranchAddress("trigger_match_2",&trigger_match_2);
+    double pt_1,pt_2,E_1,E_2,eta_1,eta_2,phi_1,phi_2,m_vis,dxy_1,dxy_2,dz_1,dz_2;
     tree->SetBranchAddress("pt_1", &pt_1);
     tree->SetBranchAddress("pt_2", &pt_2);
     tree->SetBranchAddress("E_1", &E_1);
@@ -51,6 +54,11 @@ int tagandprobe() {
     tree->SetBranchAddress("phi_1", &phi_1);
     tree->SetBranchAddress("phi_2", &phi_2);
     tree->SetBranchAddress("m_vis", &m_vis);
+    tree->SetBranchAddress("dxy_1", &dxy_1);
+    tree->SetBranchAddress("dxy_2", &dxy_2);
+    tree->SetBranchAddress("dz_1", &dz_1);
+    tree->SetBranchAddress("dz_2", &dz_2);
+
     bool os;
     tree->SetBranchAddress("os", &os);
     double pt_tag,pt_probe,E_tag,E_probe,eta_tag,eta_probe,phi_tag,phi_probe;
@@ -116,16 +124,16 @@ int tagandprobe() {
     //--------------------------------------------------------------------------------------
     for (int i = 0; i < tree->GetEntries(); ++i) {
         tree->GetEntry(i);
-        if(id_1>0.5 && iso_1<0.15 && pt_1>22 && fabs(eta_1)<2.4) {
+        if(id_1>0.5 && iso_1<0.15 && pt_1>22 && fabs(eta_1)<2.4 && trigger_match_1 && fabs(dxy_1) < 0.045 && fabs(dz_1) < 0.2) {
         //Here we apply the tag condition. This could be just id and iso, although Alexei applies some other things like high pt
         //and eta cuts, possible dxy and dz cuts and trigger matching
             // Candidate 1 is a valid tag
-            if(id_2>0.5 && iso_2<0.15 && pt_2>22 && fabs(eta_2)<2.4) {
+            if(id_2>0.5 && iso_2<0.15 && pt_2>22 && fabs(eta_2)<2.4 && trigger_match_2 && fabs(dxy_2) < 0.045 && fabs(dz_2) < 0.2) {
             // Candidate 2 is also a valid tag
-                //Here we check the pair is opposite sign. We could also check they are well separated, using Delta R(commented out) 
-                if(os /*&& DeltaR(eta_1,phi_1,eta_2,phi_2)>0.5*/){
- //                   if(q_1 == 1) {
+                //Here we check the pair is opposite sign. We also check they are well separated, using Delta R 
+                if(os && DeltaR(eta_1,phi_1,eta_2,phi_2)>0.5){
                     // Candidate 1 is the tag
+                    if(fabs(dxy_2) < 0.2 && fabs(dz_2) < 0.5) {
                         if(id_2>0.5 && iso_2<0.15) {
                             //Passing probe events fill the passing histogram
                             id_iso_pass->Fill(m_vis);
@@ -150,8 +158,9 @@ int tagandprobe() {
                                 }
                             }
                         }
-//                    } else if (q_1 == -1) {
+                    }
                     // Candidate 2 is the tag
+                    if (fabs(dxy_1) < 0.2 && fabs(dz_1) < 0.5) {
                         if(id_1>0.5 && iso_1<0.15) {
                             id_iso_pass->Fill(m_vis);
                             for (int iEta=0; iEta<nEtaBins-1; ++iEta) {
@@ -173,13 +182,13 @@ int tagandprobe() {
                                 }
                             }
                         }
-//                    }
+                    }
                 }
             } else {
                 //Candidate 1 is the tag, check conditions on candidate 2
-                if(os /*&& DeltaR(eta_1,phi_1,eta_2,phi_2)>0.5*/){
+                if(os && DeltaR(eta_1,phi_1,eta_2,phi_2)>0.5){
                     //Only use events where charge == 1 for the tag, even in events with only one tag
- //                   if(q_1==1){    
+                    if(fabs(dxy_2) < 0.2 && fabs(dz_2) < 0.5){    
                         if(id_2>0.5 && iso_2<0.15) {
                             id_iso_pass->Fill(m_vis);
                             for (int iEta=0; iEta<nEtaBins-1; ++iEta) {
@@ -201,13 +210,13 @@ int tagandprobe() {
                                 }
                             }
                         }
-                //    }
+                    }
                 }
             }
         }
     }
 
-    TFile* file0=new TFile("electronIDIso_alexei.root","RECREATE");
+    TFile* file0=new TFile("muonIDIso_alexei.root","RECREATE");
     
     for (int iEta=0; iEta<nEtaBins; ++iEta) {
         for (int iPt=0; iPt<nPtBins; ++iPt) {
