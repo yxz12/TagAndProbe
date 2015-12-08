@@ -27,7 +27,7 @@ int tagandprobe() {
     //--------------------------------------------------------------------------------------
     //                      1. Extract the root file and the tree
     //--------------------------------------------------------------------------------------
-    TFile *file = new TFile("../Trees071215/DYJetsToLL_M-50-LO_tpzmm_2015.root");
+    TFile *file = new TFile("../Trees081215/DYJetsToLL_M-50-LO_tpzmm_2015.root");
     TTree *tree = dynamic_cast<TTree*>(file->Get("ntuple"));
     
     //--------------------------------------------------------------------------------------
@@ -58,6 +58,8 @@ int tagandprobe() {
     tree->SetBranchAddress("dxy_2", &dxy_2);
     tree->SetBranchAddress("dz_1", &dz_1);
     tree->SetBranchAddress("dz_2", &dz_2);
+    double wt;
+    tree->SetBranchAddress("wt", &wt);
 
     bool os;
     tree->SetBranchAddress("os", &os);
@@ -142,7 +144,7 @@ int tagandprobe() {
                                 for (int iPt=0; iPt<nPtBins; ++iPt) {
                                     if( fabs(eta_2) > etaBins[iEta] && fabs(eta_2) < etaBins[iEta+1] 
                                         && pt_2 > ptBins[iPt] && pt_2 < ptBins[iPt+1]) {
-                                            ZMassEtaPtPass[iEta][iPt]->Fill(m_vis);
+                                            ZMassEtaPtPass[iEta][iPt]->Fill(m_vis,wt);
                                     }
                                 }
                             }
@@ -153,7 +155,7 @@ int tagandprobe() {
                                 for (int iPt=0; iPt<nPtBins; ++iPt) {
                                     if( fabs(eta_2) > etaBins[iEta] && fabs(eta_2) < etaBins[iEta+1] 
                                         && pt_2 > ptBins[iPt] && pt_2 < ptBins[iPt+1]) {
-                                            ZMassEtaPtFail[iEta][iPt]->Fill(m_vis);
+                                            ZMassEtaPtFail[iEta][iPt]->Fill(m_vis,wt);
                                     }
                                 }
                             }
@@ -167,7 +169,7 @@ int tagandprobe() {
                                 for (int iPt=0; iPt<nPtBins; ++iPt) {
                                     if( fabs(eta_1) > etaBins[iEta] && fabs(eta_1) < etaBins[iEta+1] 
                                         && pt_1 > ptBins[iPt] && pt_1 < ptBins[iPt+1]) {
-                                            ZMassEtaPtPass[iEta][iPt]->Fill(m_vis);
+                                            ZMassEtaPtPass[iEta][iPt]->Fill(m_vis,wt);
                                     }
                                 }
                             }
@@ -177,7 +179,7 @@ int tagandprobe() {
                                 for (int iPt=0; iPt<nPtBins; ++iPt) {
                                     if( fabs(eta_1) > etaBins[iEta] && fabs(eta_1) < etaBins[iEta+1] 
                                         && pt_1 > ptBins[iPt] && pt_1 < ptBins[iPt+1]) {
-                                            ZMassEtaPtFail[iEta][iPt]->Fill(m_vis);
+                                            ZMassEtaPtFail[iEta][iPt]->Fill(m_vis,wt);
                                     }
                                 }
                             }
@@ -195,7 +197,7 @@ int tagandprobe() {
                                 for (int iPt=0; iPt<nPtBins; ++iPt) {
                                     if( fabs(eta_2) > etaBins[iEta] && fabs(eta_2) < etaBins[iEta+1] 
                                         && pt_2 > ptBins[iPt] && pt_2 < ptBins[iPt+1]) {
-                                            ZMassEtaPtPass[iEta][iPt]->Fill(m_vis);
+                                            ZMassEtaPtPass[iEta][iPt]->Fill(m_vis,wt);
                                     }
                                 }
                             }
@@ -205,7 +207,7 @@ int tagandprobe() {
                                 for (int iPt=0; iPt<nPtBins; ++iPt) {
                                     if( fabs(eta_2) > etaBins[iEta] && fabs(eta_2) < etaBins[iEta+1] 
                                         && pt_2 > ptBins[iPt] && pt_2 < ptBins[iPt+1]) {
-                                            ZMassEtaPtFail[iEta][iPt]->Fill(m_vis);
+                                            ZMassEtaPtFail[iEta][iPt]->Fill(m_vis,wt);
                                     }
                                 }
                             }
